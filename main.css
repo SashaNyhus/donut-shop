@@ -1,0 +1,63 @@
+/* color palette:
+#9BB4B9 (blue)
+#1A1A18 (black)
+#806748 (tan)
+#E2DBD5 (pale)
+#8C391C (rust) */
+* {
+    /* border: 1px dashed red; */
+}
+body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    color: #1A1A18;
+    margin: 0;
+    padding: 0;
+}
+header {
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    background-color: #1A1A18;
+    margin: 0;
+    padding-left: 30px;
+}
+.image-container {
+    padding-top: 90px;
+    width: 100%;
+}
+.image-text {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    color: #E2DBD5;
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: lighter;
+    font-size: 36px;
+    text-align: left;
+}
+h2 {
+    color: #1A1A18;
+    font-size: 48px;
+}
+
+button {
+    background-color: #1A1A18;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-style: italic;
+    text-transform: uppercase;
+    color: #E2DBD5;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: none;
+    border-radius: 3px;
+}
