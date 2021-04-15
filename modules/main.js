@@ -3,6 +3,8 @@ import printInventory from "./printInventory";
 import printRevenue from "./printRevenue";
 import createNewDonut from "./createNewDonut";
 import addDonuts from "./addDonuts";
+import orderDonuts from "./orderDonuts";
+import recordRandomOrders from "./randomOrder";
 
 const MAIN_MENU_TEXT = `Welcome to Marion's Donut Shop!
 What would you like to do?
