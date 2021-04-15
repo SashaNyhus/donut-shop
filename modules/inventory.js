@@ -23,3 +23,16 @@ export var shopInventory = {
   apple: new donutData("Apple Fritter", 1, 124),
   hole: new donutData("Donut Hole", 0.5, 148)
 };
+
+export function recordDonutAddition(donutObject, quantity){
+	donutObject["donutQuantityInStore"] += quantity;
+}
+
+export function recordOrder(donutObject, quantity, price){
+	donutObject["donutQuantityInStore"] -= quantity;
+	donutObject["donutQuantitySold"] += quantity;
+	donutObject["donutIndividualRevenue"] += price;
+	shopTotalSold += quantity;
+	shopRevenue += price;
+	return;
+}

@@ -2,8 +2,9 @@ import { shopRevenue, shopInventory } from "./inventory";
 import printInventory from "./printInventory";
 import printRevenue from "./printRevenue";
 import createNewDonut from "./createNewDonut";
+import addDonuts from "./addDonuts";
 
-const MAIN_MENU = `Welcome to Marion's Donut Shop!
+const MAIN_MENU_TEXT = `Welcome to Marion's Donut Shop!
 What would you like to do?
 (1) Print current donut inventory and prices
 (2) Print current donut sales and total revenue
@@ -17,7 +18,7 @@ mainMenu();
 
 function mainMenu() {
   menuLoop: while (true) {
-    let input = prompt(MAIN_MENU, "");
+    let input = prompt(MAIN_MENU_TEXT, "");
     switch (input) {
       case "1":
         printInventory(shopInventory);
