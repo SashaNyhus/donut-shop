@@ -1,3 +1,8 @@
+import { shopRevenue, shopInventory } from "./inventory";
+import printInventory from "./printInventory";
+import printRevenue from "./printRevenue";
+import createNewDonut from "./createNewDonut";
+
 const MAIN_MENU = `Welcome to Marion's Donut Shop!
 What would you like to do?
 (1) Print current donut inventory and prices
