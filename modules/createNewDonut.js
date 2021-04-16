@@ -1,4 +1,5 @@
-import {convertToDollars} from "./misc"
+import {convertToDollars} from "./misc.js"
+import {donutData} from "./inventory.js"
 export default function createNewDonut(inventoryObject){
 	let cancelAlert = "Donut creation cancelled";
 	let progressDisplay = "";
@@ -30,7 +31,7 @@ export default function createNewDonut(inventoryObject){
 		return;
 	}
 	progressDisplay += `New Donut Key: ${key} \n`;
-	if( confirm(progressDisplay + "Confirm creation of new donut type?") ){
+	if( window.confirm(progressDisplay + "Confirm creation of new donut type?") ){
 		inventoryObject[key] = new donutData(name, price, initialQuantity);
 		alert(`${name} successfully added to shop!`);
 		return;
@@ -85,7 +86,7 @@ function getNewDonutQuantity(donutProgress){
 			break;
 		}
 		quantity = Number(quantity);
-		if( isNaN(quantity) || quantity < 0 || (Math.floor(quantity) != quantity) ){
+		if( isNaN(quantity) || quantity < 0 || (Math.floor(quantity) !== quantity) ){
 			alert("Quantity must be a positive, whole number (Type '0' if you do not want to add donuts)");
 			continue;
 		}

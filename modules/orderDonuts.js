@@ -1,5 +1,6 @@
-import {getDonutChoice, getDonutQuantity} from "./getDonutChoices";
-import {recordOrder} from "./inventory";
+import {getDonutChoice, getDonutQuantity} from "./getDonutChoices.js";
+import {recordOrder} from "./inventory.js";
+import {convertToDollars} from "./misc.js";
 export default function orderDonuts(inventoryObject){
 	let donutToBuy = getDonutChoice(inventoryObject, true);
 	if (donutToBuy === null){
@@ -29,5 +30,5 @@ export function getOrderPrice(donutObject, quantity){
 
 function confirmOrder(donutObject, quantity, price){
 	let confirmationMessage = `Confirm order of ${quantity} ${donutObject["donutName"]}(s) for ${convertToDollars(price)}?`
-	return confirm(confirmationMessage);
+	return window.confirm(confirmationMessage);
 }

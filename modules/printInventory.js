@@ -1,4 +1,4 @@
-import {convertToDollars} from "./misc";
+import {convertToDollars} from "./misc.js";
 export default function printInventory(inventoryObject) {
   let messageToPrint = [];
   let keyArray = Object.keys(inventoryObject);

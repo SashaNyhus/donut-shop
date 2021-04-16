@@ -1,5 +1,5 @@
-import {getDonutChoice, getDonutQuantity} from "./getDonutChoices";
-import {recordDonutAddition} from "./inventory";
+import {getDonutChoice, getDonutQuantity} from "./getDonutChoices.js";
+import {recordDonutAddition} from "./inventory.js";
 export default function addDonuts(inventoryObject){
 	let donutToAdd = getDonutChoice(inventoryObject, false);
 	if(donutToAdd === null){
@@ -11,7 +11,7 @@ export default function addDonuts(inventoryObject){
 		alert("Action cancelled")
 		return;
 	}
-	let additionConfirmed = confirm(`${quantityToAdd} ${donutToAdd["donutName"]}(s) will be added to shop inventory`);
+	let additionConfirmed = window.confirm(`${quantityToAdd} ${donutToAdd["donutName"]}(s) will be added to shop inventory`);
 	if(additionConfirmed){
 		recordDonutAddition(donutToAdd, quantityToAdd);
 	}

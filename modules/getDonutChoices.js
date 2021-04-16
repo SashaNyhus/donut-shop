@@ -1,4 +1,4 @@
-import {convertToDollars} from "./misc"
+import {convertToDollars} from "./misc.js"
 export function getDonutChoice(inventoryObject, purcahse){
 	let donutChoice;
 	let keyArray = Object.keys(inventoryObject);
@@ -28,7 +28,7 @@ export function getDonutQuantity(donutObject, purchase){
 	let quantity = 0;
 	while(true){
 		quantity = Number( prompt(`Enter the quantity of ${donutObject["donutName"]}s you would like to ${purchase ? "purchase": "add to inventory"}`, "") );
-		if (isNaN(quantity) || (quantity < 0) || (Math.floor(quantity) != quantity)){
+		if (isNaN(quantity) || (quantity < 0) || (Math.floor(quantity) !== quantity)){
 			alert("Please enter a positive, whole number");
 			continue;
 		}

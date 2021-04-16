@@ -1,10 +1,10 @@
-import { shopRevenue, shopInventory } from "./inventory";
-import printInventory from "./printInventory";
-import printRevenue from "./printRevenue";
-import createNewDonut from "./createNewDonut";
-import addDonuts from "./addDonuts";
-import orderDonuts from "./orderDonuts";
-import recordRandomOrders from "./randomOrder";
+import { shopRevenue, shopInventory } from "./inventory.js";
+import printInventory from "./printInventory.js";
+import printRevenue from "./printRevenue.js";
+import createNewDonut from "./createNewDonut.js";
+import addDonuts from "./addDonuts.js";
+import orderDonuts from "./orderDonuts.js";
+import recordRandomOrders from "./randomOrder.js";
 
 const MAIN_MENU_TEXT = `Welcome to Marion's Donut Shop!
 What would you like to do?
@@ -16,6 +16,7 @@ What would you like to do?
 (6) Generate random orders 
 (7) Quit program`;
 
+console.log("This is a test")
 mainMenu();
 
 function mainMenu() {

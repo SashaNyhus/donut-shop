@@ -1,5 +1,5 @@
-import {getOrderPrice} from "./orderDonuts";
-import {recordOrder} from "./inventory";
+import {getOrderPrice} from "./orderDonuts.js";
+import {recordOrder} from "./inventory.js";
 export default function recordRandomOrders(revenueTotal, inventoryObject){
 	let keyArray = Object.keys(inventoryObject);
 	let ordersToGenerate = Number( prompt("How many random orders would you like to generate?", "") );
