@@ -6,8 +6,7 @@ import addDonuts from "./addDonuts.js";
 import orderDonuts from "./orderDonuts.js";
 import recordRandomOrders from "./randomOrder.js";
 
-const MAIN_MENU_TEXT = `Welcome to Marion's Donut Shop!
-What would you like to do?
+const MAIN_MENU_TEXT = `What would you like to do?
 (1) Print current donut inventory and prices
 (2) Print current donut sales and total revenue
 (3) Create new donut type

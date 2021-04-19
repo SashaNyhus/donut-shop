@@ -1,8 +1,8 @@
 import {convertToDollars} from "./misc.js"
-export function getDonutChoice(inventoryObject, purcahse){
+export function getDonutChoice(inventoryObject, purchase){
 	let donutChoice;
 	let keyArray = Object.keys(inventoryObject);
-	let optionsDisplay = [`Enter the item key for the donut you wish to ${purcahse ? "purchase": "add"} (listed in parentheses)`];
+	let optionsDisplay = [`Enter the item key for the donut you wish to ${purchase ? "purchase": "add"} (listed in parentheses)`];
 	keyArray.forEach( function(donutEntry){
 		optionsDisplay.push(`(${donutEntry}) ${inventoryObject[donutEntry]["donutName"]}, ${convertToDollars(inventoryObject[donutEntry]["donutPrice"])} each`)
 	});
