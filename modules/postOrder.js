@@ -1,6 +1,9 @@
 export function postOrder(order){
     fetch("https://donutshop-api.herokuapp.com/place-order?id=424", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(order)
     })
     .then( res => res.json())

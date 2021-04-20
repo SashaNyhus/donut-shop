@@ -1,6 +1,9 @@
 export function postAddition(addition){
     fetch("https://donutshop-api.herokuapp.com/add-donuts?id=424", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(addition)
     })
     .then( res => res.json())
