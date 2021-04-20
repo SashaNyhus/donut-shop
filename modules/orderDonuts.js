@@ -1,6 +1,15 @@
 import {getDonutChoice, getDonutQuantity} from "./getDonutChoices.js";
-import {recordOrder} from "./inventory.js";
+import {postOrder} from "./postOrder.js";
 import {convertToDollars} from "./misc.js";
+class order {
+	type;
+	count;
+	constructor(type, count){
+		this.type = type;
+		this.count = count;
+	}
+}
+
 export default function orderDonuts(inventoryObject){
 	let donutToBuy = getDonutChoice(inventoryObject, true);
 	if (donutToBuy === null){
@@ -8,14 +17,15 @@ export default function orderDonuts(inventoryObject){
 		return;
 	}
 	let orderQuantity = getDonutQuantity(donutToBuy, true);
-	if (orderQuantity === 0){
+	if (orderQuantity === 0 || orderQuantity === null){
 		alert("Order cancelled");
 		return;
 	}
 	let orderPrice = getOrderPrice(donutToBuy, orderQuantity);
 	let orderConfirmed = confirmOrder(donutToBuy, orderQuantity, orderPrice);
 	if(orderConfirmed) {
-		recordOrder(donutToBuy, orderQuantity, orderPrice);
+		let orderToPost = new order(donutToBuy["donutName"], orderQuantity);
+		postOrder(orderToPost);
 		alert("Thank you for your purchase!");
 	}
 	else{

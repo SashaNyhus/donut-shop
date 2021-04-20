@@ -1,15 +1,9 @@
-import {convertToDollars} from "./misc.js";
-export default function printInventory(inventoryObject) {
+import {donutData} from "./donutData.js"
+export default function printInventory(inventoryArray) {
   let messageToPrint = [];
-  let keyArray = Object.keys(inventoryObject);
-  keyArray.forEach(function (donutEntry) {
+  inventoryArray.forEach(function (donutEntry) {
     messageToPrint.push(
-      inventoryObject[donutEntry]["donutName"] +
-        ": " +
-        inventoryObject[donutEntry]["donutQuantityInStore"] +
-        " in inventory, priced at " +
-        convertToDollars(inventoryObject[donutEntry]["donutPrice"]) +
-        " each."
+      donutEntry.createInventoryDisplay()
     );
   });
   alert(messageToPrint.join("\n"));

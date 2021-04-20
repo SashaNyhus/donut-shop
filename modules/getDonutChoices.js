@@ -1,42 +1,29 @@
-import {convertToDollars} from "./misc.js"
-export function getDonutChoice(inventoryObject, purchase){
+import { getNumberInput } from "./checkInput.js";
+
+export function getDonutChoice(inventoryArray, purchase){
 	let donutChoice;
-	let keyArray = Object.keys(inventoryObject);
 	let optionsDisplay = [`Enter the item key for the donut you wish to ${purchase ? "purchase": "add"} (listed in parentheses)`];
-	keyArray.forEach( function(donutEntry){
-		optionsDisplay.push(`(${donutEntry}) ${inventoryObject[donutEntry]["donutName"]}, ${convertToDollars(inventoryObject[donutEntry]["donutPrice"])} each`)
+	inventoryArray.forEach( function(donutEntry, index){
+		optionsDisplay.push(donutEntry.createOptionDisplay(index))
 	});
 	optionsDisplay = optionsDisplay.join("\n");
-	while(true){
-		donutChoice = (prompt(optionsDisplay, "").toLowerCase());
-		if (donutChoice in inventoryObject){
-			break;
-		}
-		else if (donutChoice === null){
-			break;
-		}
-		else {
-			alert("Key not recognized. Try again or cancel order.");
-			continue;
-		}
+	donutChoice = getNumberInput(optionsDisplay, 0, (inventoryArray.length - 1));
+	if (donutChoice === null){
+		return donutChoice;
 	}
-	donutChoice = inventoryObject[donutChoice];
+	console.log(donutChoice);
+	donutChoice = inventoryArray[donutChoice];
 	return donutChoice;
 }
 
 export function getDonutQuantity(donutObject, purchase){
 	let quantity = 0;
-	while(true){
-		quantity = Number( prompt(`Enter the quantity of ${donutObject["donutName"]}s you would like to ${purchase ? "purchase": "add to inventory"}`, "") );
-		if (isNaN(quantity) || (quantity < 0) || (Math.floor(quantity) !== quantity)){
-			alert("Please enter a positive, whole number");
-			continue;
-		}
-		else if (purchase && donutObject["donutQuantityInStore"] < quantity){
-			quantity = donutObject["donutQuantityInStore"];
-			alert(`Sorry, we only have ${quantity} ${donutObject["donutName"]}(s) in the store. Your order has been changed to ${quantity} donuts.`)
-		}
-		break;
+	let maxQuantity = 999;
+	let display = `Enter the quantity of ${donutObject["donutName"]}s you would like to ${purchase ? "purchase": "add to inventory"}`;
+	if (purchase){
+		display += `\n We currently have ${donutObject["donutQuantityInStore"]} in inventory.`
+		maxQuantity = donutObject["donutQuantityInStore"]
 	}
+	quantity = getNumberInput(display, 0, maxQuantity);
 	return quantity;
 }

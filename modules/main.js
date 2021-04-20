@@ -1,10 +1,11 @@
-import { shopRevenue, shopInventory } from "./inventory.js";
+// import { shopRevenue, shopInventory } from "./inventory.js";
 import printInventory from "./printInventory.js";
 import printRevenue from "./printRevenue.js";
 import createNewDonut from "./createNewDonut.js";
 import addDonuts from "./addDonuts.js";
 import orderDonuts from "./orderDonuts.js";
 import recordRandomOrders from "./randomOrder.js";
+import {donutData} from "./donutData.js"
 
 const MAIN_MENU_TEXT = `What would you like to do?
 (1) Print current donut inventory and prices
@@ -14,9 +15,30 @@ const MAIN_MENU_TEXT = `What would you like to do?
 (5) Order donuts
 (6) Generate random orders 
 (7) Quit program`;
+var shopInventory = {}
 
-console.log("This is a test")
-mainMenu();
+fetchStoreInventory()
+
+
+function fetchStoreInventory(){
+  fetch("https://donutshop-api.herokuapp.com/inventory?id=424", {
+    "method": "GET"
+  })
+    .then(response => response.json())
+    .then(fetchedInventory => initialize(fetchedInventory))
+    .then(finalInventory => (shopInventory = finalInventory))
+    .then(() => (mainMenu()))
+    .catch(err => {
+      console.error("Store Inventory Fetch Error:" + err);
+    })
+    
+}
+
+function initialize(fetchedData){
+  let processedInventory = []
+  fetchedData.donuts.forEach(donutEntry => processedInventory.push(new donutData(donutEntry.type, donutEntry.price, donutEntry.count)));
+  return processedInventory;
+}
 
 function mainMenu() {
   menuLoop: while (true) {
@@ -49,3 +71,12 @@ function mainMenu() {
     }
   }
 }
+
+// new Promise((resolve, reject) => {
+//   fetchStoreInventory()
+// })
+//   .then(response => (alert("Fetch completed for " + response)))
+//   // .then(console.log())
+//   .then(mainMenu())
+
+
