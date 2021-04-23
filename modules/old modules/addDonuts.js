@@ -1,5 +1,5 @@
 import {getDonutChoice, getDonutQuantity} from "./getDonutChoices.js";
-import {postAddition} from "./postAddition.js"
+import {postAddition} from "../postAddition.js"
 
 class donutAddition {
 	type;

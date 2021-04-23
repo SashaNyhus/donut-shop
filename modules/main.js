@@ -1,12 +1,7 @@
-// import { shopRevenue, shopInventory } from "./inventory.js";
-import printInventory from "./printInventory.js";
-import printRevenue from "./printRevenue.js";
-import createNewDonut from "./createNewDonut.js";
-import addDonuts from "./addDonuts.js";
-import orderDonuts from "./orderDonuts.js";
-import recordRandomOrders from "./randomOrder.js";
+import {getShopID, getShopInventory} from "./getShopData.js"
 import {donutData} from "./donutData.js"
 
+export const API_URL = new URL("https://donutshop-api.herokuapp.com");
 const MAIN_MENU_TEXT = `What would you like to do?
 (1) Print current donut inventory and prices
 (2) Print current donut sales and total revenue
@@ -15,68 +10,80 @@ const MAIN_MENU_TEXT = `What would you like to do?
 (5) Order donuts
 (6) Generate random orders 
 (7) Quit program`;
-var shopInventory = {}
+export var shopData = {}
 
-fetchStoreInventory()
+document.getElementById("daily-donut-shortcut").addEventListener("click", (() => gotToShop("The Daily Donut")));
+document.getElementById("inventory-refresh").addEventListener("click", refreshInventory)
 
-
-function fetchStoreInventory(){
-  fetch("https://donutshop-api.herokuapp.com/inventory?id=424", {
-    "method": "GET"
-  })
-    .then(response => response.json())
-    .then(fetchedInventory => initialize(fetchedInventory))
-    .then(finalInventory => (shopInventory = finalInventory))
-    .then(() => (mainMenu()))
-    .catch(err => {
-      console.error("Store Inventory Fetch Error:" + err);
-    })
-    
-}
-
-function initialize(fetchedData){
-  let processedInventory = []
-  fetchedData.donuts.forEach(donutEntry => processedInventory.push(new donutData(donutEntry.type, donutEntry.price, donutEntry.count)));
-  return processedInventory;
-}
-
-function mainMenu() {
-  menuLoop: while (true) {
-    let input = prompt(MAIN_MENU_TEXT, "");
-    switch (input) {
-      case "1":
-        printInventory(shopInventory);
-        break;
-      case "2":
-        printRevenue(shopRevenue, shopInventory);
-        break;
-      case "3":
-        createNewDonut(shopInventory);
-        break;
-      case "4":
-        addDonuts(shopInventory);
-        break;
-      case "5":
-        orderDonuts(shopInventory);
-        break;
-      case "6":
-        recordRandomOrders(shopRevenue, shopInventory);
-        break;
-      case "7":
-      case null:
-        break menuLoop;
-      default:
-        alert("Please enter a number from 1-7");
-        break;
-    }
+function loadingScreen(loading, reason){
+  document.getElementById("loading-text").innerText=reason;
+  let loadingDisplay = document.getElementById("loading-screen");
+  if(loading){
+    loadingDisplay.style.visibility="visible"
+  }
+  else {
+    loadingDisplay.style.visibility="hidden"
   }
 }
 
-// new Promise((resolve, reject) => {
-//   fetchStoreInventory()
-// })
-//   .then(response => (alert("Fetch completed for " + response)))
-//   // .then(console.log())
-//   .then(mainMenu())
+async function gotToShop(shop){
+  loadingScreen(true, "Accessing Shop Data");
+  setShopName(shop);
+  let shopID = await getShopID(shop);
+  setShopID(shopID);
+  await getShopInventory(shopID);
+  document.getElementById("shop-name-display").innerText=shop;
+  document.getElementById("order-form").style.visibility="visible";
+  loadingScreen(false, "");
+  console.log(shopData);
+  return;
+}
+
+function setShopName(name){
+  shopData.name = name;
+  return;
+}
+function setShopID(id){
+  shopData.id = id;
+  return;
+}
+
+async function refreshInventory(){
+  loadingScreen(true, "Accessing Shop Data");
+  await getShopInventory(shopData.id);
+  displayInventory();
+  loadingScreen(false, "");
+  return;
+}
+
+function displayInventory(){
+  let messageToPrint = [];
+  shopData.inventory.forEach(function (donutEntry) {
+    messageToPrint.push(
+      donutEntry.createInventoryDisplay()
+    );
+  });
+  console.log(messageToPrint)
+  document.getElementById("display-area").innerHTML=(messageToPrint.join("\n"));
+  return;
+}
+
+function printSuggestions(){
+  let shops = []
+  fetch("https://donutshop-api.herokuapp.com/shops", {
+    "method": "GET"
+  })
+  .then(result => result.json())
+  // .then(fetchedArray => (shops = fetchedArray))
+  .then(shopArray => AddShopIDs(shopArray))
+  .then(() => document.getElementById("display-area").innerHTML = shops.join("\n"))
+  
+}
 
 
+function AddShopIDs(arr){
+  arr.map(element => {
+    getShopID(element)
+    .then(result => ({name: element, id: result}))
+  });
+}

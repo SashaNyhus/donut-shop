@@ -4,7 +4,9 @@
 #806748 (tan)
 #E2DBD5 (pale)
 #8C391C (rust) */
-
+* {
+    border: 2px dotted red;
+}
 body {
     font-family: 'Times New Roman', Times, serif;
     font-size: 14px;
@@ -48,7 +50,7 @@ h2 {
     font-size: 48px;
 }
 
-button {
+a {
     background-color: #1A1A18;
     padding: 15px 20px;
     font-size: 20px;
@@ -58,4 +60,12 @@ button {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border: none;
     border-radius: 3px;
+}
+
+#loading-screen {
+    position: fixed;
+    visibility: hidden;
+    background-color: aqua;
+    height: 100vh;
+    width: 100%;
 }
