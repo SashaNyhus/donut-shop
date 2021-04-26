@@ -1,5 +1,4 @@
-import {getShopID, getShopInventory} from "./getShopData.js"
-import {donutData} from "./donutData.js"
+import {getShopsList, getShopID, getShopInventory} from "./getShopData.js"
 
 export const API_URL = new URL("https://donutshop-api.herokuapp.com");
 const MAIN_MENU_TEXT = `What would you like to do?
@@ -12,8 +11,30 @@ const MAIN_MENU_TEXT = `What would you like to do?
 (7) Quit program`;
 export var shopData = {}
 
+initializeShopsOptions();
+console.log(document.getElementById("shop-choice").textContent)
 document.getElementById("daily-donut-shortcut").addEventListener("click", (() => gotToShop("The Daily Donut")));
-document.getElementById("inventory-refresh").addEventListener("click", refreshInventory)
+document.getElementById("inventory-refresh").addEventListener("click", refreshInventory);
+document.getElementById("go-to-shop").addEventListener("click", () => gotToShop(document.getElementById("shop-choice").value).catch(err => console.log("error accessing shop data: " + err)));
+
+async function initializeShopsOptions(){
+  loadingScreen(true, "Loading Donut Shop Options");
+  let shopsArray = await getShopsList()
+  .catch(error => console.log("Error fetching shops list: " + error))
+  shopsArray.forEach(shopName => createOption(shopName));
+  loadingScreen(false, "");
+  return;
+}
+
+function createOption(shop){
+  if(shop.includes(`'`)){
+    return;
+  }
+  let option = document.createElement("option");
+  option.value = shop;
+  document.getElementById("shops").append(option);
+  return;
+}
 
 function loadingScreen(loading, reason){
   document.getElementById("loading-text").innerText=reason;
@@ -25,17 +46,18 @@ function loadingScreen(loading, reason){
     loadingDisplay.style.visibility="hidden"
   }
 }
-
+//436
 async function gotToShop(shop){
+  console.log("loading " + shop)
   loadingScreen(true, "Accessing Shop Data");
   setShopName(shop);
   let shopID = await getShopID(shop);
   setShopID(shopID);
   await getShopInventory(shopID);
+  displayInventory();
   document.getElementById("shop-name-display").innerText=shop;
   document.getElementById("order-form").style.visibility="visible";
   loadingScreen(false, "");
-  console.log(shopData);
   return;
 }
 
@@ -50,7 +72,8 @@ function setShopID(id){
 
 async function refreshInventory(){
   loadingScreen(true, "Accessing Shop Data");
-  await getShopInventory(shopData.id);
+  await getShopInventory(shopData.id)
+  .catch(err => console.log("error fetching shop inventory: " + err))
   displayInventory();
   loadingScreen(false, "");
   return;

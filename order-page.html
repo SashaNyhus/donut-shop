@@ -8,10 +8,17 @@
     </head>
     <body>
         <div id="loading-screen">
-            <p id="loading-text"></p>
+            <p id="loading-text">Accessing Shop Data</p>
+            <img src="images/donuts-loading2.gif" alt="">
         </div>
         <h2 id="shop-name-display">Select a Donut Shop</h2>
         <button id="daily-donut-shortcut">Shop the Daily Donut</button>
+        <div id="shop-selection-containter">
+            <label for="shop-choice">Or, type a different shop name:</label>
+            <input type="text" list="shops" id="shop-choice" name="shop">
+            <button id="go-to-shop">GO</button>
+            <datalist id="shops"></datalist>
+        </div>
         <button id="suggest-shop">Suggest a different donut shop</button>
         <div id="order-form">
             <button id="inventory-refresh">Refresh store inventory</button>
@@ -19,4 +26,5 @@
         <div id="display-area">
             <p>Current inventory:</p>
         </div>
+        <img src="images/donuts-photo.jpg" alt="">
     </body>

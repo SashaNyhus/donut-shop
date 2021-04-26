@@ -1,8 +1,17 @@
 import {API_URL, shopData} from "./main.js"
 import {donutData} from "./donutData.js"
+
+export async function getShopsList(){
+    let requestUrl = new URL("shops", API_URL);
+    let fetchedShops = await fetch(requestUrl, {
+        "method": "GET"
+    })
+    fetchedShops = await fetchedShops.json();
+    return fetchedShops;
+
+}
 export async function getShopID(shopName){
     let requestUrl = new URL("shop-id", API_URL);
-    console.log(requestUrl)
     let body = {name: shopName}
     let fetchedID = await fetch(requestUrl, {
       "method": "POST",
@@ -13,15 +22,16 @@ export async function getShopID(shopName){
     })
     fetchedID = await fetchedID.json();
     fetchedID = fetchedID.id;
+    console.log("shop id fetched as " + fetchedID);
     return fetchedID;
   }
 
   export async function getShopInventory(id){
       let requestUrl = new URL(`inventory?id=${id}`, API_URL);
-      console.log(id)
       let fetchedInventory = await fetch(requestUrl, {"method": "GET"});
       fetchedInventory = await fetchedInventory.json();
       shopData.inventory = initialize(fetchedInventory);
+      console.log("successfully downloaded inventory for " + shopData.name)
   }
 
   function initialize(fetchedData){
