@@ -45,3 +45,18 @@ export async function submitNewDonut(id, body){
     console.log(result)
     return;
 }
+
+export async function submitNewShop(body){
+    let requestUrl = new URL(`create-donut-shop`, API_URL);
+    let result = await fetch(requestUrl, {
+      "method": "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+    .catch(err => console.log("problem submitting new shop: " + err))
+    result = await result.json();
+    console.log(result)
+    return;
+}

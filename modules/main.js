@@ -1,4 +1,4 @@
-import { submitOrder, submitAddition } from "./changeShopData.js";
+import { submitOrder, submitAddition, submitNewShop } from "./changeShopData.js";
 import {getShopsList, getShopID, getShopInventory, getShopRevenue} from "./getShopData.js"
 import {createNewDonut} from "./createNewDonut.js"
 
@@ -12,6 +12,7 @@ initializeShopsOptions();
 document.getElementById("daily-donut-shortcut").addEventListener("click", (() => gotToShop("The Daily Donut")));
 document.getElementById("go-to-shop").addEventListener("click", () => gotToShop(document.getElementById("shop-choice").value).catch(err => console.log("error accessing shop data: " + err)));
 document.getElementById("suggest-shop").addEventListener("click", suggestRandomShop);
+document.getElementById("create-shop").addEventListener("click", displayShopCreation);
 
 //shop buttons
 document.getElementById("show-inventory").addEventListener("click", refreshInventory);
@@ -25,6 +26,7 @@ document.getElementById("back-button").addEventListener("click", leaveSubMenu);
 document.getElementById("place-order").addEventListener("click", orderDonuts);
 document.getElementById("submit-addition").addEventListener("click", addDonuts);
 document.getElementById("submit-new-donut").addEventListener("click", createNewDonut);
+document.getElementById("submit-new-shop").addEventListener("click", createNewShop);
 
 async function initializeShopsOptions(){
   loadingScreen(true, "Loading Donut Shop Options");
@@ -62,6 +64,24 @@ export function loadingScreen(loading, reason){
   else {
     loadingDisplay.style.visibility="hidden"
   }
+}
+
+function displayShopCreation(){
+  leaveSubMenu();
+  document.getElementById("shop-buttons").style.display="none";
+  document.getElementById("shop-creation-screen").style.display="flex";
+  return;
+}
+
+async function createNewShop(){
+  let newShopName = document.getElementById("new-shop-name").value;
+  let newShopObject = {name: newShopName};
+  loadingScreen(true, "Creating new shop");
+  await submitNewShop(newShopObject);
+  await gotToShop(newShopName);
+  document.getElementById("shop-creation-screen").style.display="none";
+  loadingScreen(false, "")
+  return;
 }
 
 async function gotToShop(shop){
