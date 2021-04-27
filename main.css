@@ -114,3 +114,10 @@ button {
     display: none;
     margin-bottom: 30px;
 }
+#donut-creation-screen {
+    display: none;
+    flex-direction: column;
+}
+#create-shop {
+    margin-bottom: 30px;
+}

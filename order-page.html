@@ -14,12 +14,20 @@
         <h2 id="shop-name-display">Select a Donut Shop</h2>
         <button id="daily-donut-shortcut">Shop the Daily Donut</button>
         <div id="shop-selection-containter">
-            <label for="shop-choice">Or, type a different shop name:</label>
+            <label for="shop-choice">Or, type a shop name:</label>
             <input type="text" list="shops" id="shop-choice" name="shop">
             <button id="go-to-shop">GO</button>
             <datalist id="shops"></datalist>
         </div>
         <button id="suggest-shop">Suggest a different donut shop</button>
+        <button id="create-shop">Start a new donut shop</button>
+        <div id="shop-buttons">
+            <button id="show-inventory">See shop inventory</button>
+            <button id="show-revenue">See shop revenue</button>
+            <button id="order-donuts">Order donuts</button>
+            <button id="add-donuts">Add donuts to inventory</button>
+            <button id="create-donut">Create a new donut variety</button>
+        </div> 
         <div class="sub-menu" id="order-form">
             <p>Donut Variety:</p>
             <div id="radio-buttons">
@@ -31,14 +39,18 @@
             <button id="place-order">Place Order</button>
             <button id="submit-addition">Add Donuts</button>
         </div>
-        <div id="shop-buttons">
-            <button id="show-inventory">See shop inventory</button>
-            <button id="show-revenue">See shop revenue</button>
-            <button id="order-donuts">Order donuts</button>
-            <button id="add-donuts">Add donuts to inventory</button>
-            <button id="create-donut">Create a new donut variety</button>
-        </div>
         <div class="sub-menu" id="display-area">
+        </div>
+        <div class="sub-menu" id="donut-creation-screen">
+            <div>
+                <label for="new-donut-name">Name of the new donut:</label>
+                <input type="text" name="new-donut-name" id="new-donut-name" maxlength="255">
+            </div>
+            <div>
+                <label for="new-donut-price">Price of the new donut:</label>
+                <input type="number" name="new-donut-price" id="new-donut-price" min=".01" max="100">
+            </div>
+            <button id="submit-new-donut">Create New Donut</button>
         </div>
         <button class="sub-menu" id="back-button">Back to shop menu</button>
     </body>

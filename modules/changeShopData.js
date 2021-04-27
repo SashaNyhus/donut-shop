@@ -30,3 +30,18 @@ export async function submitAddition(id, body){
     console.log(result)
     return;
 }
+
+export async function submitNewDonut(id, body){
+    let requestUrl = new URL(`create-donut-type?id=${id}`, API_URL);
+    let result = await fetch(requestUrl, {
+      "method": "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+    .catch(err => console.log("problem submitting new donut: " + err))
+    result = await result.json();
+    console.log(result)
+    return;
+}

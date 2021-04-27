@@ -1,5 +1,6 @@
 import { submitOrder, submitAddition } from "./changeShopData.js";
 import {getShopsList, getShopID, getShopInventory, getShopRevenue} from "./getShopData.js"
+import {createNewDonut} from "./createNewDonut.js"
 
 export const API_URL = new URL("https://donutshop-api.herokuapp.com");
 const CUSTOMER_REVIEWS = ["Delicious", "Unique", "Unforgettable", "The best donut money can buy", "Classic", "So tasty!", "Distinctive", "Just heavenly", "A charming addition to the shop", "Exquisite", "I'm Commander Shepherd, and this is my favorite donut in the Citadel"]
@@ -17,11 +18,13 @@ document.getElementById("show-inventory").addEventListener("click", refreshInven
 document.getElementById("show-revenue").addEventListener("click", displayRevenue);
 document.getElementById("order-donuts").addEventListener("click", displayOrderForm);
 document.getElementById("add-donuts").addEventListener("click", displayAddForm);
+document.getElementById("create-donut").addEventListener("click", displayDonutCreation);
 document.getElementById("back-button").addEventListener("click", leaveSubMenu);
 
 //submit buttons
 document.getElementById("place-order").addEventListener("click", orderDonuts);
 document.getElementById("submit-addition").addEventListener("click", addDonuts);
+document.getElementById("submit-new-donut").addEventListener("click", createNewDonut);
 
 async function initializeShopsOptions(){
   loadingScreen(true, "Loading Donut Shop Options");
@@ -50,7 +53,7 @@ function createOption(shop){
   return;
 }
 
-function loadingScreen(loading, reason){
+export function loadingScreen(loading, reason){
   document.getElementById("loading-text").innerText=reason;
   let loadingDisplay = document.getElementById("loading-screen");
   if(loading){
@@ -101,6 +104,9 @@ function displayInventory(){
       donutEntry.createInventoryDisplay(review)
     );
   });
+  if(messageToPrint.length === 0){
+    messageToPrint.push("No inventory to display")
+  }
   leaveShopMenu();
   document.getElementById("display-area").innerHTML=(messageToPrint.join("\n"));
   document.getElementById("display-area").style.display="flex";
@@ -190,12 +196,17 @@ function getDonutChoice(purchase){
   return {type: choice.donutName, count: quantity};
 }
 
+function displayDonutCreation(){
+  leaveShopMenu();
+  document.getElementById("donut-creation-screen").style.display="flex";
+}
+
 function leaveShopMenu(){
   document.getElementById("shop-buttons").style.display="none";
   document.getElementById("back-button").style.display="flex";
 }
 
-function leaveSubMenu(){
+export function leaveSubMenu(){
   let subMenu = document.getElementsByClassName("sub-menu")
   for(let element of subMenu){
   element.style.display="none"
