@@ -8,9 +8,6 @@ export class donutData {
       this.donutPrice = price;
       this.donutQuantityInStore = quantity;
     }
-    createOptionDisplay(key){
-      return `(${key}) ${this.donutName}, ${convertToDollars(this.donutPrice)} each, ${this.donutQuantityInStore} in inventory.`
-    }
     createInventoryDisplay(descriptor){
         let htmlContent =  
         `<div class="item-box">
@@ -21,6 +18,14 @@ export class donutData {
           <p><em>"${descriptor}"</em></p>
         </div>`;
         return htmlContent;
+    }
+    createRadioButton(key){
+      let htmlContent = 
+      `<div>
+        <input type="radio" id="donut${key}-button" name="donut-choice" value="${key}">
+        <label for="donut${key}-button">${this.donutName} (${convertToDollars(this.donutPrice)} each, ${this.donutQuantityInStore} in stock) </label>
+      </div>`
+      return htmlContent;
     }
   }
 

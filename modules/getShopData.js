@@ -1,5 +1,5 @@
 import {API_URL, shopData} from "./main.js"
-import {donutData} from "./donutData.js"
+import {donutData, convertToDollars} from "./donutData.js"
 
 export async function getShopsList(){
     let requestUrl = new URL("shops", API_URL);
@@ -32,6 +32,14 @@ export async function getShopID(shopName){
       fetchedInventory = await fetchedInventory.json();
       shopData.inventory = initialize(fetchedInventory);
       console.log("successfully downloaded inventory for " + shopData.name)
+  }
+
+  export async function getShopRevenue(id){
+    let requestUrl = new URL(`revenue?id=${id}`, API_URL);
+    let fetchedRevenue = await fetch(requestUrl, {"method": "GET"});
+    fetchedRevenue = await fetchedRevenue.json();
+    console.log("successfully downloaded revenue for " + shopData.name)
+    return convertToDollars(fetchedRevenue.revenue);
   }
 
   function initialize(fetchedData){

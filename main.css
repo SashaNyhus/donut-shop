@@ -67,9 +67,13 @@ button {
 }
 
 #order-form {
-    visibility: hidden;
+    display: none;
+    flex-direction: column;
 }
-
+#radio-buttons {
+    display: flex;
+    flex-direction: column;
+}
 #loading-screen {
     position: fixed;
     visibility: hidden;
@@ -107,5 +111,6 @@ button {
     text-align: center;
 }
 #back-button {
-    visibility: hidden;
+    display: none;
+    margin-bottom: 30px;
 }

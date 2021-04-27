@@ -20,8 +20,16 @@
             <datalist id="shops"></datalist>
         </div>
         <button id="suggest-shop">Suggest a different donut shop</button>
-        <div id="order-form">
-            <button id="inventory-refresh">Refresh store inventory</button>
+        <div class="sub-menu" id="order-form">
+            <p>Donut Variety:</p>
+            <div id="radio-buttons">
+            </div>
+            <div id="quantity-choice">
+                <label for="donut-quantity">Quantity:</label>
+                <input type="number" name="donut-quantity" id="donut-quantity" min="1">
+            </div>
+            <button id="place-order">Place Order</button>
+            <button id="submit-addition">Add Donuts</button>
         </div>
         <div id="shop-buttons">
             <button id="show-inventory">See shop inventory</button>
