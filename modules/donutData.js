@@ -11,8 +11,16 @@ export class donutData {
     createOptionDisplay(key){
       return `(${key}) ${this.donutName}, ${convertToDollars(this.donutPrice)} each, ${this.donutQuantityInStore} in inventory.`
     }
-    createInventoryDisplay(){
-        return `${this.donutName}, ${convertToDollars(this.donutPrice)} each, ${this.donutQuantityInStore} in inventory.`;
+    createInventoryDisplay(descriptor){
+        let htmlContent =  
+        `<div class="item-box">
+          <img src="images/donuts-variety.png" alt="Donut Icon" height="50px">
+          <p>${this.donutName}</p>
+          <p>Price: ${convertToDollars(this.donutPrice)}</p>
+          <p>${this.donutQuantityInStore} in stock.</p>
+          <p><em>"${descriptor}"</em></p>
+        </div>`;
+        return htmlContent;
     }
   }
 

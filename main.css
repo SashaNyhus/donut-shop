@@ -90,3 +90,22 @@ button {
     border: 2px solid #5A3129;
     border-radius: 15px;
 }
+#shop-buttons {
+    display: none;
+    flex-direction: column;
+}
+#display-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 20px 100px;
+}
+.item-box {
+    width: 300px;
+    padding: 15px 10px;
+    text-align: center;
+}
+#back-button {
+    visibility: hidden;
+}
